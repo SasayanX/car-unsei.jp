@@ -1,15 +1,28 @@
 import type { MetadataRoute } from "next"
-import { existingBlogPosts } from "@/data/existing-blog-posts"
+import fs from "fs"
+import path from "path"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://car-unsei.jp"
   const currentDate = new Date()
 
+  // ブログディレクトリから実際のページを取得
+  const blogDir = path.join(process.cwd(), "app", "blog")
+  let blogSlugs: string[] = []
+  
+  try {
+    const entries = fs.readdirSync(blogDir, { withFileTypes: true })
+    blogSlugs = entries
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+  } catch (error) {
+    console.error("ブログディレクトリの読み込みエラー:", error)
+  }
+
   // デバッグ情報をコンソールに出力
   console.log("=== サイトマップ生成デバッグ ===")
-  console.log("ブログ記事総数:", existingBlogPosts.length)
-  console.log("最新記事:", existingBlogPosts[0]?.title, existingBlogPosts[0]?.date)
-  console.log("梅雨記事数:", existingBlogPosts.filter((post) => post.category === "車メンテナンス・梅雨対策").length)
+  console.log("ブログ記事総数:", blogSlugs.length)
+  console.log("検出された記事:", blogSlugs.slice(0, 5).join(", "), "...")
 
   // 静的ページ
   const staticPages: MetadataRoute.Sitemap = [
@@ -63,19 +76,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
-  // ブログ記事を自動生成
-  const blogPosts: MetadataRoute.Sitemap = existingBlogPosts.map((post) => {
-    // 梅雨対策記事は優先度を高く設定
-    const isRainySeasonPost = post.category === "車メンテナンス・梅雨対策"
-    const priority = isRainySeasonPost ? 0.7 : 0.6
-
-    console.log(`ブログ記事追加: /blog/${post.slug} (${post.date})`)
-
+  // ブログ記事を自動生成（ファイルシステムから）
+  const blogPosts: MetadataRoute.Sitemap = blogSlugs.map((slug) => {
     return {
-      url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.date),
+      url: `${baseUrl}/blog/${slug}`,
+      lastModified: currentDate,
       changeFrequency: "monthly" as const,
-      priority,
+      priority: 0.7,
     }
   })
 
