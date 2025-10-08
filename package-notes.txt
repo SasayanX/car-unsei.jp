@@ -1,0 +1,4 @@
+// 以下のパッケージをインストールしてください
+// npm install canvas-confetti framer-motion
+// または
+// yarn add canvas-confetti framer-motion

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>住まい運勢診断 - アルゴリズム フローチャート</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        @media print {
+            @page { 
+                size: A4; 
+                margin: 1.5cm; 
+            }
+            body { 
+                font-family: "Yu Gothic", "游ゴシック", sans-serif; 
+                line-height: 1.4; 
+                color: #333; 
+                margin: 0;
+                padding: 0;
+            }
+            .page-break { 
+                page-break-before: always; 
+            }
+            .header { 
+                text-align: center; 
+                margin-bottom: 1cm; 
+                border-bottom: 2px solid #9333ea; 
+                padding-bottom: 0.5cm; 
+            }
+            h1 { 
+                font-size: 20pt; 
+                color: #9333ea; 
+                margin: 0; 
+            }
+            h2 { 
+                font-size: 16pt; 
+                color: #9333ea; 
+                margin-top: 0.5cm; 
+                margin-bottom: 0.3cm; 
+            }
+            .chart-container { 
+                text-align: center; 
+                margin: 0.5cm 0; 
+                height: auto;
+            }
+            .mermaid { 
+                background-color: white !important;
+                border: 1px solid #ddd;
+                padding: 0.5cm;
+                margin: 0.3cm 0;
+            }
+            .description {
+                background-color: #f8f9fa;
+                padding: 0.5cm;
+                border-left: 3px solid #9333ea;
+                margin: 0.5cm 0;
+                font-size: 10pt;
+            }
+            .footer {
+                position: fixed;
+                bottom: 1cm;
+                right: 1cm;
+                font-size: 8pt;
+                color: #666;
+            }
+        }
+        
+        @media screen {
+            body { 
+                font-family: "Yu Gothic", "游ゴシック", sans-serif; 
+                line-height: 1.6; 
+                color: #333; 
+                max-width: 21cm;
+                margin: 0 auto;
+                padding: 2cm;
+                background-color: #f5f5f5;
+            }
+            .page {
+                background-color: white;
+                padding: 2cm;
+                margin-bottom: 2cm;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+            .header { 
+                text-align: center; 
+                margin-bottom: 2cm; 
+                border-bottom: 2px solid #9333ea; 
+                padding-bottom: 1cm; 
+            }
+            h1 { 
+                font-size: 24pt; 
+                color: #9333ea; 
+                margin: 0; 
+            }
+            h2 { 
+                font-size: 18pt; 
+                color: #9333ea; 
+                margin-top: 1cm; 
+                margin-bottom: 0.5cm; 
+            }
+            .chart-container { 
+                text-align: center; 
+                margin: 1cm 0; 
+            }
+            .description {
+                background-color: #f8f9fa;
+                padding: 1cm;
+                border-left: 3px solid #9333ea;
+                margin: 1cm 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ページ1: メインフローチャート -->
+    <div class="page">
+        <div class="header">
+            <h1>住まい運勢診断システム</h1>
+            <p>アルゴリズム フローチャート</p>
+        </div>
+
+        <h2>1. メイン処理フロー</h2>
+        
+        <div class="chart-container">
+            <div class="mermaid">
+flowchart TD
+    A["🏠 住所入力<br/>例: 東京都渋谷区神宮前1-2-3"] --> B["🔍 数字抽出<br/>番地部分のみを抽出<br/>結果: 1-2-3"]
+    
+    B --> C["📊 数字分解<br/>各桁に分解<br/>結果: [1, 2, 3]"]
+    
+    C --> D["🔧 フィルタリング<br/>0を除外、1-9のみ残す<br/>結果: [1, 2, 3]"]
+    
+    D --> E["🔗 組み合わせ生成<br/>連続する2桁を生成<br/>結果: [12, 23]"]
+    
+    E --> F["⚖️ 81画理論適用<br/>各数字・組み合わせを評価"]
+    
+    F --> G["📈 個別数字スコア<br/>1: 100点(大吉)<br/>2: 20点(凶)<br/>3: 73点(大吉)"]
+    
+    F --> H["📈 組み合わせスコア<br/>12: 20点(凶)<br/>23: 73点(大吉)"]
+    
+    G --> I["🧮 重み付き計算<br/>個別平均×0.7 ＋ 組み合わせ平均×0.3"]
+    H --> I
+    
+    I --> J["📋 最終スコア算出<br/>64.3×0.7 ＋ 46.5×0.3 = 59点"]
+    
+    J --> K["🎯 運勢判定<br/>59点 → 中吉"]
+    
+    K --> L["📝 結果表示<br/>・総合得点<br/>・運勢タイプ<br/>・詳細分析<br/>・改善アドバイス"]
+
+    style A fill:#e1f5fe
+    style L fill:#e8f5e8
+    style I fill:#fff3e0
+    style F fill:#f3e5f5
+            </div>
+        </div>
+
+        <div class="description">
+            <strong>特徴:</strong> 住所の番地部分のみを使用する革新的なアプローチ。従来の複雑な漢字画数計算を排除し、シンプルで理解しやすいシステムを実現。
+        </div>
+    </div>
+
+    <!-- ページ2: 技術的処理フロー -->
+    <div class="page page-break">
+        <div class="header">
+            <h1>技術的処理フロー（詳細版）</h1>
+        </div>
+
+        <h2>2. システム内部処理</h2>
+        
+        <div class="chart-container">
+            <div class="mermaid">
+flowchart TD
+    START["開始"] --> INPUT["住所文字列入力"]
+    
+    INPUT --> REGEX["正規表現で数字抽出<br/>数字のみを抽出"]
+    
+    REGEX --> SPLIT["文字列を数字配列に変換<br/>各桁を分離"]
+    
+    SPLIT --> FILTER["配列フィルタリング<br/>0を除外、1から9のみ残す"]
+    
+    FILTER --> COMBO["2桁組み合わせ生成<br/>連続する数字をペア化"]
+    
+    COMBO --> VALID["有効性チェック<br/>81以下かつ0より大きい"]
+    
+    VALID --> DB1["個別数字データベース参照<br/>各数字の運勢データ取得"]
+    VALID --> DB2["組み合わせデータベース参照<br/>ペア数字の運勢データ取得"]
+    
+    DB1 --> CALC1["個別スコア平均計算<br/>合計を個数で割る"]
+    DB2 --> CALC2["組み合わせスコア平均計算<br/>合計を個数で割る"]
+    
+    CALC1 --> WEIGHT["重み付き計算<br/>個別70パーセント 組み合わせ30パーセント"]
+    CALC2 --> WEIGHT
+    
+    WEIGHT --> ROUND["四捨五入<br/>最終スコア確定"]
+    
+    ROUND --> OUTPUT["結果オブジェクト生成<br/>スコア、タイプ、分析結果"]
+    
+    OUTPUT --> END["終了"]
+
+    style START fill:#4caf50,color:#fff
+    style END fill:#f44336,color:#fff
+    style WEIGHT fill:#ff9800,color:#fff
+    style DB1 fill:#2196f3,color:#fff
+    style DB2 fill:#2196f3,color:#fff
+            </div>
+        </div>
+
+        <div class="description">
+            <strong>技術的特徴:</strong> TypeScriptによる型安全な実装、リアルタイム処理、エラーハンドリング機能を備えた高品質なシステム設計。
+        </div>
+    </div>
+
+    <!-- ページ3: 独自性強調フロー -->
+    <div class="page page-break">
+        <div class="header">
+            <h1>独自性・革新性の比較</h1>
+        </div>
+
+        <h2>3. 従来手法との差別化</h2>
+        
+        <div class="chart-container">
+            <div class="mermaid">
+flowchart LR
+    A["従来の住所分析"] --> A1["町名の漢字も計算"]
+    A --> A2["複雑な画数計算"]
+    A --> A3["理解困難"]
+    A --> A4["処理時間長"]
+    
+    B["本システムの革新"] --> B1["🎯 番地のみに特化"]
+    B --> B2["🚀 シンプルな数字処理"]
+    B --> B3["✨ 誰でも理解可能"]
+    B --> B4["⚡ 瞬時診断"]
+    
+    B1 --> C["独自アルゴリズム"]
+    B2 --> C
+    B3 --> C
+    B4 --> C
+    
+    C --> D["重み付けスコア<br/>個別70% ＋ 組み合わせ30%"]
+    
+    D --> E["高精度診断結果"]
+    
+    E --> F["商標・特許対象"]
+
+    style A fill:#ffebee
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style E fill:#e1f5fe
+    style F fill:#f3e5f5
+            </div>
+        </div>
+
+        <div class="description">
+            <strong>独自性のポイント:</strong>
+            <ul>
+                <li>「番地のみ」という革新的アプローチ</li>
+                <li>重み付けアルゴリズムによる高精度診断</li>
+                <li>81画理論の住所分析への応用</li>
+                <li>リアルタイム処理による優れたUX</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        住まい運勢診断システム - 2025年5月 - ie-unsei.jp
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>

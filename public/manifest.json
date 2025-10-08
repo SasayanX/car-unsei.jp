@@ -1,0 +1,107 @@
+{
+  "name": "愛車運勢・性格診断 | 日本初のナンバープレート総合分析サービス",
+  "short_name": "愛車運勢・性格診断",
+  "description": "車のナンバープレートから運勢と性格を無料で診断！81画理論と数秘術を組み合わせた日本初の総合分析サービス。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ja",
+  "categories": ["lifestyle", "entertainment", "utilities"],
+  "screenshots": [
+    {
+      "src": "/images/screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "愛車運勢・性格診断のモバイル画面"
+    },
+    {
+      "src": "/images/screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "愛車運勢・性格診断のデスクトップ画面"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/images/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "愛車運勢診断",
+      "short_name": "運勢診断",
+      "description": "車のナンバープレートから運勢を診断",
+      "url": "/?tab=fortune",
+      "icons": [
+        {
+          "src": "/images/shortcut-fortune.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "愛車性格診断",
+      "short_name": "性格診断",
+      "description": "車のナンバープレートから性格を分析",
+      "url": "/?tab=personality",
+      "icons": [
+        {
+          "src": "/images/shortcut-personality.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

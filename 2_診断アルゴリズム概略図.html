@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>住まい運勢診断 - アルゴリズム概略図</title>
+    <style>
+        @media print {
+            @page { size: A4; margin: 2cm; }
+            body { font-family: "Yu Gothic", "游ゴシック", sans-serif; line-height: 1.6; color: #333; }
+            .header { text-align: center; margin-bottom: 2cm; border-bottom: 2px solid #9333ea; padding-bottom: 1cm; }
+            h1 { font-size: 24pt; color: #9333ea; margin-bottom: 0.5cm; }
+            h2 { font-size: 18pt; color: #9333ea; margin-top: 1cm; margin-bottom: 0.5cm; }
+            .flowchart { background-color: #f8f9fa; padding: 1cm; border: 1px solid #ddd; margin: 1cm 0; }
+            .step { background-color: #fff; border: 2px solid #9333ea; padding: 0.5cm; margin: 0.5cm 0; text-align: center; border-radius: 5px; }
+            .arrow { text-align: center; font-size: 18pt; color: #9333ea; margin: 0.2cm 0; }
+            .example { background-color: #e8f4fd; padding: 0.5cm; border-left: 3px solid #2196f3; margin: 0.5cm 0; }
+            .highlight { background-color: #fff3cd; padding: 0.5cm; border-left: 3px solid #ffc107; margin: 0.5cm 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>住まい運勢診断</h1>
+        <p>診断アルゴリズム概略図</p>
+    </div>
+
+    <h2>1. 全体フロー</h2>
+    
+    <div class="flowchart">
+        <div class="step">
+            <strong>STEP 1: 住所入力</strong><br>
+            ユーザーが住所を入力
+        </div>
+        <div class="arrow">↓</div>
+        
+        <div class="step">
+            <strong>STEP 2: 数字抽出</strong><br>
+            住所から番地の数字のみを抽出
+        </div>
+        <div class="arrow">↓</div>
+        
+        <div class="step">
+            <strong>STEP 3: 数字分解</strong><br>
+            抽出した数字を各桁に分解
+        </div>
+        <div class="arrow">↓</div>
+        
+        <div class="step">
+            <strong>STEP 4: フィルタリング</strong><br>
+            0を除外し、1-9の数字のみを残す
+        </div>
+        <div class="arrow">↓</div>
+        
+        <div class="step">
+            <strong>STEP 5: 組み合わせ生成</strong><br>
+            連続する2桁の組み合わせを生成
+        </div>
+        <div class="arrow">↓</div>
+        
+        <div class="step">
+            <strong>STEP 6: 81画理論適用</strong><br>
+            各数字・組み合わせを81画理論で評価
+        </div>
+        <div class="arrow">↓</div>
+        
+        <div class="step">
+            <strong>STEP 7: スコア計算</strong><br>
+            重み付きスコアで総合評価を算出
+        </div>
+        <div class="arrow">↓</div>
+        
+        <div class="step">
+            <strong>STEP 8: 結果表示</strong><br>
+            診断結果とアドバイスを表示
+        </div>
+    </div>
+
+    <h2>2. 具体例での処理過程</h2>
+    
+    <div class="example">
+        <h3>入力例：「東京都渋谷区神宮前1-2-3」</h3>
+        
+        <p><strong>STEP 2: 数字抽出</strong></p>
+        <p>「1-2-3」→ 数字部分「123」を抽出</p>
+        
+        <p><strong>STEP 3: 数字分解</strong></p>
+        <p>「123」→ [1, 2, 3]</p>
+        
+        <p><strong>STEP 4: フィルタリング</strong></p>
+        <p>[1, 2, 3] → [1, 2, 3]（0がないのでそのまま）</p>
+        
+        <p><strong>STEP 5: 組み合わせ生成</strong></p>
+        <p>[1, 2, 3] → 組み合わせ：[12, 23]</p>
+        
+        <p><strong>STEP 6: 81画理論適用</strong></p>
+        <p>・数字1：81点（大吉）</p>
+        <p>・数字2：78点（大吉）</p>
+        <p>・数字3：73点（大吉）</p>
+        <p>・組み合わせ12：71点（吉）</p>
+        <p>・組み合わせ23：73点（大吉）</p>
+        
+        <p><strong>STEP 7: スコア計算</strong></p>
+        <p>・個別平均：(81+78+73)/3 = 77.3点</p>
+        <p>・組み合わせ平均：(71+73)/2 = 72.0点</p>
+        <p>・重み付きスコア：77.3×0.7 + 72.0×0.3 = 75.7点</p>
+    </div>
+
+    <h2>3. 技術的特徴</h2>
+    
+    <div class="highlight">
+        <h3>3.1 「番地のみ」の革新性</h3>
+        <p>従来の住所分析では町名の漢字画数まで計算していましたが、本システムは<strong>「番地の数字のみ」</strong>に特化。この簡潔性が独自性を生み、誰でも理解しやすいシステムを実現。</p>
+    </div>
+    
+    <div class="highlight">
+        <h3>3.2 重み付けアルゴリズム</h3>
+        <p><strong>個別数字70% + 組み合わせ30%</strong>の独自配分により、基本的な数字の力を重視しつつ、数字の相互作用も考慮した精密な診断を実現。</p>
+    </div>
+    
+    <div class="highlight">
+        <h3>3.3 81画理論の応用</h3>
+        <p>姓名判断で使われる81画理論を住所分析に応用。各数字・組み合わせに対応する運勢データベースを構築し、科学的根拠に基づく診断を提供。</p>
+    </div>
+
+    <h2>4. システムの優位性</h2>
+    
+    <ul>
+        <li><strong>処理速度</strong>：リアルタイムでの瞬時診断</li>
+        <li><strong>精度</strong>：重み付けによる高精度な評価</li>
+        <li><strong>拡張性</strong>：新しい診断項目の追加が容易</li>
+        <li><strong>保守性</strong>：シンプルなロジックで保守が容易</li>
+        <li><strong>独自性</strong>：他に類を見ない「番地のみ」アプローチ</li>
+    </ul>
+</body>
+</html>
