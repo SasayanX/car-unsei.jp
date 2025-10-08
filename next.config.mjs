@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    unoptimized: true, // Netlifyでは画像最適化をサーバーレスで処理
   },
   // Netlify configuration
   output: 'standalone',
