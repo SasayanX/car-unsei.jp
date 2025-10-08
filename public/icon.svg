@@ -1,0 +1,41 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景グラデーション -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="512" height="512" fill="url(#bgGradient)" rx="0"/>
+  
+  <!-- 車のシルエット -->
+  <g transform="translate(256, 256)">
+    <!-- 車体 -->
+    <rect x="-120" y="-40" width="240" height="80" fill="white" rx="8"/>
+    
+    <!-- 車の窓 -->
+    <rect x="-100" y="-30" width="80" height="50" fill="#2563eb" rx="4"/>
+    <rect x="20" y="-30" width="80" height="50" fill="#2563eb" rx="4"/>
+    
+    <!-- ナンバープレート -->
+    <rect x="-60" y="25" width="120" height="30" fill="white" stroke="#2563eb" stroke-width="3" rx="3"/>
+    
+    <!-- ナンバープレートの数字 -->
+    <text x="0" y="47" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2563eb" text-anchor="middle">1234</text>
+    
+    <!-- タイヤ -->
+    <circle cx="-70" cy="60" r="20" fill="#1e293b"/>
+    <circle cx="70" cy="60" r="20" fill="#1e293b"/>
+    <circle cx="-70" cy="60" r="10" fill="#64748b"/>
+    <circle cx="70" cy="60" r="10" fill="#64748b"/>
+    
+    <!-- 星（運勢を表現） -->
+    <path d="M 0,-90 L 8,-70 L 30,-70 L 12,-55 L 20,-35 L 0,-50 L -20,-35 L -12,-55 L -30,-70 L -8,-70 Z" fill="#fbbf24"/>
+  </g>
+  
+  <!-- テキスト：運勢 */
+  <text x="256" y="420" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">運勢</text>
+</svg>
+
