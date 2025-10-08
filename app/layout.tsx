@@ -42,7 +42,8 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   other: {
     "google-adsense-account": "ca-pub-3409171148853394",
-    "msvalidate.01": "YOUR_BING_VERIFICATION_CODE",
+    // Bing Webmaster Tools verification code (取得後に設定)
+    // "msvalidate.01": "YOUR_BING_VERIFICATION_CODE",
     canonical: "https://car-unsei.jp",
   },
   appleWebApp: {
