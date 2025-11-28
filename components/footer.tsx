@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="bg-gray-50 dark:bg-gray-900 border-t mt-12">
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-8">
           {/* サイト情報 */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
@@ -98,6 +98,33 @@ export function Footer() {
               <li>
                 <Link href="/disclaimer" className="text-gray-600 dark:text-gray-400 hover:text-blue-600">
                   免責事項
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* 関連サービス */}
+          <div>
+            <h3 className="font-semibold mb-4">関連サービス</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link
+                  href="https://ie-unsei.jp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600"
+                >
+                  住まい運勢診断
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://seimei.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600"
+                >
+                  まいにちAI姓名判断
                 </Link>
               </li>
             </ul>
