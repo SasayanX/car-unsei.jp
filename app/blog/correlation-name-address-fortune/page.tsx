@@ -209,7 +209,7 @@ export default function CorrelationNameAddressFortunePage() {
               <pre>
                 def optimize_address(name_score, target_total_score): optimal_addresses = [] for address in
                 address_candidates: predicted_score = calculate_combined_score(name_score, address) if predicted_score
-                >= target_total_score: optimal_addresses.append(address) return optimal_addresses
+                &gt;= target_total_score: optimal_addresses.append(address) return optimal_addresses
               </pre>
 
               <h4>引っ越し時の最適タイミング</h4>
