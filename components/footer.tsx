@@ -65,9 +65,14 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/" className="text-gray-600 dark:text-gray-400 hover:text-blue-600">
-                  愛車性格診断
-                </Link>
+                <a 
+                  href="https://ie-unsei.jp/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600"
+                >
+                  住まい運勢診断
+                </a>
               </li>
               <li>
                 <Link href="/blog" className="text-gray-600 dark:text-gray-400 hover:text-blue-600">
