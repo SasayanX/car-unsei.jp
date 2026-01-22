@@ -1,6 +1,6 @@
-const CACHE_NAME = "car-unsei-v3"
-const STATIC_CACHE = "static-v3"
-const DYNAMIC_CACHE = "dynamic-v3"
+const CACHE_NAME = "car-unsei-v4"
+const STATIC_CACHE = "static-v4"
+const DYNAMIC_CACHE = "dynamic-v4"
 
 // キャッシュするファイル
 const STATIC_FILES = [
