@@ -517,26 +517,32 @@ export default function PWAInstallPrompt() {
       {/* 自動インストールプロンプト */}
       {showInstallPrompt && deferredPrompt && (
         <div className="fixed bottom-4 left-4 right-4 z-50 md:left-auto md:right-4 md:w-80">
-          <Card className="bg-white shadow-lg border-purple-200">
+          <Card className="bg-white shadow-lg border-blue-200">
             <CardContent className="p-4">
               <div className="flex items-start gap-3">
-                <Smartphone className="w-6 h-6 text-purple-600 mt-1" />
+                <Smartphone className="w-6 h-6 text-blue-600 mt-1" />
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900 mb-1">🎉 アプリをインストール</h3>
-                  <p className="text-sm text-gray-600 mb-3">ホーム画面に追加して、いつでも簡単にアクセス！</p>
+                  <p className="text-sm text-gray-600 mb-3">
+                    ホーム画面から簡単にアクセス！
+                    <br />
+                    オフラインでも利用可能です。
+                  </p>
                   <div className="flex gap-2">
-                    <Button onClick={handleInstall} size="sm" className="bg-purple-600 hover:bg-purple-700">
+                    <Button onClick={handleInstall} size="sm" className="flex-1 bg-blue-600 hover:bg-blue-700">
                       <Download className="w-4 h-4 mr-1" />
-                      インストール
+                      今すぐインストール
                     </Button>
-                    <Button onClick={handleDismiss} variant="outline" size="sm">
+                  </div>
+                  <div className="flex gap-2 mt-2">
+                    <Button onClick={handleDismiss} variant="outline" size="sm" className="flex-1">
                       後で
+                    </Button>
+                    <Button onClick={handleDismiss} variant="ghost" size="sm">
+                      <X className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
-                <Button onClick={handleDismiss} variant="ghost" size="sm" className="p-1 h-auto">
-                  <X className="w-4 h-4" />
-                </Button>
               </div>
             </CardContent>
           </Card>
@@ -551,51 +557,75 @@ export default function PWAInstallPrompt() {
               <div className="flex items-start gap-3">
                 <Smartphone className="w-6 h-6 text-blue-600 mt-1" />
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900 mb-1">📱 アプリとしてインストール</h3>
-                  <p className="text-sm text-gray-600 mb-2">
-                    このサイトはアプリとして
+                  <h3 className="font-semibold text-gray-900 mb-1">📱 アプリをインストール</h3>
+                  <p className="text-sm text-gray-600 mb-3">
+                    ホーム画面から簡単にアクセス！
                     <br />
-                    インストールできます！
+                    オフラインでも利用可能です。
                   </p>
-                  <div className="bg-blue-50 p-3 rounded text-xs text-blue-700 mb-3">
-                    <div className="font-semibold mb-2">📋 インストール手順：</div>
-                    {isAndroid ? (
-                      <ol className="list-decimal list-inside space-y-1">
-                        <li>Chrome ブラウザのメニュー（⋮）を開く</li>
-                        <li>
-                          <strong>「アプリをインストール」</strong>を選択
-                        </li>
-                        <li>「インストール」ボタンをタップ</li>
-                      </ol>
-                    ) : isIOS ? (
-                      <ol className="list-decimal list-inside space-y-1">
-                        <li>共有ボタン（□↑）をタップ</li>
-                        <li>
-                          <strong>「ホーム画面に追加」</strong>を選択
-                        </li>
-                        <li>「追加」ボタンをタップ</li>
-                      </ol>
-                    ) : (
-                      <ol className="list-decimal list-inside space-y-1">
-                        <li>アドレスバー右側の <strong>⊕ アイコン</strong> をクリック</li>
-                        <li>または Chrome メニュー（⋮）を開く</li>
-                        <li>
-                          <strong>「愛車運勢診断をインストール」</strong>を選択
-                        </li>
-                      </ol>
-                    )}
-                    <div className="mt-2 text-xs text-blue-600">
-                      ※ メニューに表示されない場合は、もう少しサイトを使ってみてください
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button onClick={() => handleManualDismiss(true)} variant="outline" size="sm" className="text-xs">
-                      今後表示しない
-                    </Button>
-                    <Button onClick={() => handleManualDismiss()} variant="ghost" size="sm" className="p-1 h-auto">
-                      <X className="w-4 h-4" />
-                    </Button>
-                  </div>
+
+                  {deferredPrompt ? (
+                    // deferredPrompt がある場合：インストールボタンを表示
+                    <>
+                      <div className="flex gap-2 mb-2">
+                        <Button onClick={handleInstall} size="sm" className="flex-1 bg-blue-600 hover:bg-blue-700">
+                          <Download className="w-4 h-4 mr-1" />
+                          今すぐインストール
+                        </Button>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button onClick={() => handleManualDismiss()} variant="outline" size="sm" className="flex-1 text-xs">
+                          後で
+                        </Button>
+                        <Button onClick={() => handleManualDismiss(true)} variant="ghost" size="sm" className="text-xs">
+                          今後表示しない
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    // deferredPrompt がない場合：手動インストール手順を表示
+                    <>
+                      <div className="bg-blue-50 p-3 rounded text-xs text-blue-700 mb-3">
+                        <div className="font-semibold mb-2">📋 インストール手順：</div>
+                        {isAndroid ? (
+                          <ol className="list-decimal list-inside space-y-1">
+                            <li>Chrome ブラウザのメニュー（⋮）を開く</li>
+                            <li>
+                              <strong>「アプリをインストール」</strong>を選択
+                            </li>
+                            <li>「インストール」ボタンをタップ</li>
+                          </ol>
+                        ) : isIOS ? (
+                          <ol className="list-decimal list-inside space-y-1">
+                            <li>共有ボタン（□↑）をタップ</li>
+                            <li>
+                              <strong>「ホーム画面に追加」</strong>を選択
+                            </li>
+                            <li>「追加」ボタンをタップ</li>
+                          </ol>
+                        ) : (
+                          <ol className="list-decimal list-inside space-y-1">
+                            <li>アドレスバー右側の <strong>⊕ アイコン</strong> をクリック</li>
+                            <li>または Chrome メニュー（⋮）を開く</li>
+                            <li>
+                              <strong>「愛車運勢診断をインストール」</strong>を選択
+                            </li>
+                          </ol>
+                        )}
+                        <div className="mt-2 text-xs text-blue-600">
+                          ※ メニューに表示されない場合は、もう少しサイトを使ってみてください
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button onClick={() => handleManualDismiss()} variant="outline" size="sm" className="flex-1 text-xs">
+                          閉じる
+                        </Button>
+                        <Button onClick={() => handleManualDismiss(true)} variant="ghost" size="sm" className="text-xs">
+                          今後表示しない
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </CardContent>
