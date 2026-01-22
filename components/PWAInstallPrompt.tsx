@@ -231,21 +231,30 @@ export default function PWAInstallPrompt() {
 
     // 手動インストールバナーの表示判定
     const checkManualInstall = () => {
-      if (!standalone && isAndroidDevice && isChrome) {
+      if (!standalone && isChrome) {
         const manualDismissed = localStorage.getItem("pwa-manual-dismissed")
+        const forceSkip = localStorage.getItem("pwa-force-skip")
         const lastShown = Number.parseInt(localStorage.getItem("pwa-manual-last-shown") || "0")
         const now = Date.now()
         const hoursSinceLastShown = (now - lastShown) / (1000 * 60 * 60)
 
-        // 訪問回数が2回以上、または30秒以上滞在した場合
-        if (visits >= 2 || (!manualDismissed && hoursSinceLastShown > 1)) {
+        // 強制スキップされている場合は表示しない
+        if (forceSkip) {
+          return
+        }
+
+        // エンゲージメントスコアを取得
+        const { score: currentEngScore } = trackEngagement()
+
+        // エンゲージメントスコアが30以上、または訪問回数が2回以上の場合
+        if (currentEngScore >= 30 || visits >= 2 || (!manualDismissed && hoursSinceLastShown > 1)) {
           setTimeout(() => {
             if (!deferredPrompt) {
-              console.log("Showing manual install banner")
+              console.log("Showing manual install banner (engagement:", currentEngScore, ")")
               setShowManualInstall(true)
               localStorage.setItem("pwa-manual-last-shown", now.toString())
             }
-          }, 5000)
+          }, 3000)
         }
       }
     }
@@ -263,7 +272,7 @@ export default function PWAInstallPrompt() {
       }
     }
 
-    setTimeout(checkManualInstall, 3000)
+    setTimeout(checkManualInstall, 2000)
     setTimeout(checkEngagementPrompt, 8000)
 
     // クリーンアップ
@@ -534,8 +543,8 @@ export default function PWAInstallPrompt() {
         </div>
       )}
 
-      {/* 手動インストール案内（Android Chrome） */}
-      {showManualInstall && isAndroid && (
+      {/* 手動インストール案内（全デバイス対応） */}
+      {showManualInstall && (
         <div className="fixed bottom-4 left-4 right-4 z-50 md:left-auto md:right-4 md:w-80">
           <Card className="bg-white shadow-lg border-blue-200">
             <CardContent className="p-4">
@@ -550,13 +559,31 @@ export default function PWAInstallPrompt() {
                   </p>
                   <div className="bg-blue-50 p-3 rounded text-xs text-blue-700 mb-3">
                     <div className="font-semibold mb-2">📋 インストール手順：</div>
-                    <ol className="list-decimal list-inside space-y-1">
-                      <li>Chrome ブラウザのメニュー（⋮）を開く</li>
-                      <li>
-                        <strong>「アプリをインストール」</strong>を選択
-                      </li>
-                      <li>「インストール」ボタンをタップ</li>
-                    </ol>
+                    {isAndroid ? (
+                      <ol className="list-decimal list-inside space-y-1">
+                        <li>Chrome ブラウザのメニュー（⋮）を開く</li>
+                        <li>
+                          <strong>「アプリをインストール」</strong>を選択
+                        </li>
+                        <li>「インストール」ボタンをタップ</li>
+                      </ol>
+                    ) : isIOS ? (
+                      <ol className="list-decimal list-inside space-y-1">
+                        <li>共有ボタン（□↑）をタップ</li>
+                        <li>
+                          <strong>「ホーム画面に追加」</strong>を選択
+                        </li>
+                        <li>「追加」ボタンをタップ</li>
+                      </ol>
+                    ) : (
+                      <ol className="list-decimal list-inside space-y-1">
+                        <li>アドレスバー右側の <strong>⊕ アイコン</strong> をクリック</li>
+                        <li>または Chrome メニュー（⋮）を開く</li>
+                        <li>
+                          <strong>「愛車運勢診断をインストール」</strong>を選択
+                        </li>
+                      </ol>
+                    )}
                     <div className="mt-2 text-xs text-blue-600">
                       ※ メニューに表示されない場合は、もう少しサイトを使ってみてください
                     </div>
