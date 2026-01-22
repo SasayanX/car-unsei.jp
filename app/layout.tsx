@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
+import Script from "next/script"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CookieConsent } from "@/components/cookie-consent"
@@ -115,64 +116,59 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="application-name" content="愛車運勢診断" />
 
-        {/* Google Analytics - 直接実装 */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0W7B8NKG1"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-             window.dataLayer = window.dataLayer || [];
-             function gtag(){dataLayer.push(arguments);}
-             gtag('js', new Date());
-             gtag('config', 'G-V0W7B8NKG1', {
-               page_title: document.title,
-               page_location: window.location.href,
-               send_page_view: true
-             });
-             console.log('Google Analytics initialized with ID: G-V0W7B8NKG1');
-           `,
-          }}
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-V0W7B8NKG1"
+          strategy="afterInteractive"
         />
-
-        {/* Service Worker登録（強化版） */}
-        <script>
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
-           if ('serviceWorker' in navigator) {
-             window.addEventListener('load', function() {
-               navigator.serviceWorker.register('/sw.js', { scope: '/' })
-                 .then(function(registration) {
-                   console.log('SW registered: ', registration);
-                   
-                   // Service Workerの更新をチェック
-                   registration.addEventListener('updatefound', () => {
-                     const newWorker = registration.installing;
-                     if (newWorker) {
-                       newWorker.addEventListener('statechange', () => {
-                         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                           // 新しいService Workerが利用可能
-                           console.log('New service worker available');
-                           newWorker.postMessage({ type: 'SKIP_WAITING' });
-                         }
-                       });
-                     }
-                   });
-                   
-                   // 定期的に更新をチェック
-                   setInterval(() => {
-                     registration.update();
-                   }, 60000); // 1分ごと
-                 })
-                 .catch(function(registrationError) {
-                   console.log('SW registration failed: ', registrationError);
-                 });
-                 
-               // Service Workerが制御を取得したときの処理
-               navigator.serviceWorker.addEventListener('controllerchange', () => {
-                 console.log('Service Worker controller changed');
-               });
-             });
-           }
-         `}
-        </script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-V0W7B8NKG1', {
+              page_path: window.location.pathname,
+              send_page_view: true
+            });
+          `}
+        </Script>
+
+        {/* Service Worker登録 */}
+        <Script id="sw-register" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                  .then(function(registration) {
+                    console.log('SW registered: ', registration);
+                    
+                    registration.addEventListener('updatefound', () => {
+                      const newWorker = registration.installing;
+                      if (newWorker) {
+                        newWorker.addEventListener('statechange', () => {
+                          if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            console.log('New service worker available');
+                            newWorker.postMessage({ type: 'SKIP_WAITING' });
+                          }
+                        });
+                      }
+                    });
+                    
+                    setInterval(() => {
+                      registration.update();
+                    }, 60000);
+                  })
+                  .catch(function(registrationError) {
+                    console.log('SW registration failed: ', registrationError);
+                  });
+                  
+                navigator.serviceWorker.addEventListener('controllerchange', () => {
+                  console.log('Service Worker controller changed');
+                });
+              });
+            }
+          `}
+        </Script>
 
         {/* Enhanced Structured data */}
         <script type="application/ld+json">

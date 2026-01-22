@@ -1,41 +1,138 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <!-- 背景グラデーション -->
   <defs>
+    <!-- 緑の背景グラデーション -->
     <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#16a34a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
     </linearGradient>
+    
+    <!-- 車体のグラデーション（水色） -->
+    <linearGradient id="carBodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#bfdbfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- フロントガラスのグラデーション -->
+    <linearGradient id="windshieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- シャドウ -->
+    <filter id="shadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+      <feOffset dx="0" dy="8" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 文字のシャドウ -->
+    <filter id="textShadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+      <feOffset dx="0" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.5"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
   
   <!-- 背景 -->
-  <rect width="512" height="512" fill="url(#bgGradient)" rx="0"/>
+  <rect width="512" height="512" fill="url(#bgGradient)" rx="110"/>
   
-  <!-- 車のシルエット -->
-  <g transform="translate(256, 256)">
-    <!-- 車体 -->
-    <rect x="-120" y="-40" width="240" height="80" fill="white" rx="8"/>
+  <!-- 車全体のグループ（正面図） -->
+  <g transform="translate(256, 320)" filter="url(#shadow)">
     
-    <!-- 車の窓 -->
-    <rect x="-100" y="-30" width="80" height="50" fill="#2563eb" rx="4"/>
-    <rect x="20" y="-30" width="80" height="50" fill="#2563eb" rx="4"/>
+    <!-- ボンネット上部 -->
+    <path d="M -120,-80 L -100,-100 L 100,-100 L 120,-80 Z" 
+          fill="url(#carBodyGradient)" stroke="#7dd3fc" stroke-width="2"/>
+    
+    <!-- 車体メイン -->
+    <rect x="-140" y="-80" width="280" height="140" 
+          fill="url(#carBodyGradient)" stroke="#7dd3fc" stroke-width="2" rx="15"/>
+    
+    <!-- フロントガラス -->
+    <path d="M -100,-80 Q -100,-95 -80,-95 L 80,-95 Q 100,-95 100,-80 L 100,-20 Q 100,0 80,0 L -80,0 Q -100,0 -100,-20 Z" 
+          fill="url(#windshieldGradient)"/>
+    
+    <!-- フロントガラスのハイライト -->
+    <path d="M -90,-85 Q -90,-90 -75,-90 L 75,-90 Q 90,-90 90,-85 L 90,-30 Q 90,-25 75,-25 L -75,-25 Q -90,-25 -90,-30 Z" 
+          fill="white" opacity="0.15"/>
+    
+    <!-- 「運」の文字（フロントガラス内） -->
+    <g filter="url(#textShadow)">
+      <text x="0" y="-30" 
+            font-family="'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif" 
+            font-size="85" 
+            font-weight="900" 
+            fill="#fbbf24" 
+            text-anchor="middle"
+            stroke="#f59e0b"
+            stroke-width="2">運</text>
+    </g>
+    
+    <!-- ヘッドライト（左） -->
+    <ellipse cx="-110" cy="20" rx="22" ry="18" fill="#fbbf24" opacity="0.95"/>
+    <ellipse cx="-110" cy="20" rx="16" ry="13" fill="#fde047"/>
+    <ellipse cx="-115" cy="16" rx="8" ry="6" fill="#fef9c3" opacity="0.8"/>
+    
+    <!-- ヘッドライト（右） -->
+    <ellipse cx="110" cy="20" rx="22" ry="18" fill="#fbbf24" opacity="0.95"/>
+    <ellipse cx="110" cy="20" rx="16" ry="13" fill="#fde047"/>
+    <ellipse cx="115" cy="16" rx="8" ry="6" fill="#fef9c3" opacity="0.8"/>
+    
+    <!-- グリル -->
+    <rect x="-30" y="50" width="60" height="8" fill="#64748b" rx="3"/>
+    <line x1="-25" y1="52" x2="25" y2="52" stroke="#94a3b8" stroke-width="1"/>
+    <line x1="-25" y1="56" x2="25" y2="56" stroke="#94a3b8" stroke-width="1"/>
     
     <!-- ナンバープレート -->
-    <rect x="-60" y="25" width="120" height="30" fill="white" stroke="#2563eb" stroke-width="3" rx="3"/>
+    <rect x="-50" y="40" width="100" height="20" fill="white" stroke="#cbd5e1" stroke-width="2" rx="3"/>
+    <text x="0" y="54" 
+          font-family="Arial, sans-serif" 
+          font-size="12" 
+          font-weight="bold" 
+          fill="#334155" 
+          text-anchor="middle">88-88</text>
     
-    <!-- ナンバープレートの数字 -->
-    <text x="0" y="47" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2563eb" text-anchor="middle">1234</text>
+    <!-- タイヤ（左） -->
+    <g transform="translate(-120, 80)">
+      <ellipse cx="0" cy="0" rx="28" ry="32" fill="#1e293b"/>
+      <ellipse cx="0" cy="0" rx="22" ry="26" fill="#334155"/>
+      <ellipse cx="0" cy="0" rx="16" ry="20" fill="#475569"/>
+      <circle cx="0" cy="0" r="8" fill="#64748b"/>
+      <circle cx="0" cy="0" r="4" fill="#94a3b8"/>
+    </g>
     
-    <!-- タイヤ -->
-    <circle cx="-70" cy="60" r="20" fill="#1e293b"/>
-    <circle cx="70" cy="60" r="20" fill="#1e293b"/>
-    <circle cx="-70" cy="60" r="10" fill="#64748b"/>
-    <circle cx="70" cy="60" r="10" fill="#64748b"/>
+    <!-- タイヤ（右） -->
+    <g transform="translate(120, 80)">
+      <ellipse cx="0" cy="0" rx="28" ry="32" fill="#1e293b"/>
+      <ellipse cx="0" cy="0" rx="22" ry="26" fill="#334155"/>
+      <ellipse cx="0" cy="0" rx="16" ry="20" fill="#475569"/>
+      <circle cx="0" cy="0" r="8" fill="#64748b"/>
+      <circle cx="0" cy="0" r="4" fill="#94a3b8"/>
+    </g>
     
-    <!-- 星（運勢を表現） -->
-    <path d="M 0,-90 L 8,-70 L 30,-70 L 12,-55 L 20,-35 L 0,-50 L -20,-35 L -12,-55 L -30,-70 L -8,-70 Z" fill="#fbbf24"/>
+    <!-- ボディライン -->
+    <line x1="-135" y1="0" x2="135" y2="0" stroke="white" stroke-width="2" opacity="0.4" stroke-linecap="round"/>
+    
+    <!-- サイドミラー（左） -->
+    <ellipse cx="-145" cy="-30" rx="12" ry="20" fill="url(#carBodyGradient)" stroke="#7dd3fc" stroke-width="2"/>
+    
+    <!-- サイドミラー（右） -->
+    <ellipse cx="145" cy="-30" rx="12" ry="20" fill="url(#carBodyGradient)" stroke="#7dd3fc" stroke-width="2"/>
+    
+    <!-- ルーフのハイライト -->
+    <ellipse cx="0" cy="-95" rx="60" ry="8" fill="white" opacity="0.2"/>
+    
   </g>
   
-  <!-- テキスト：運勢 */
-  <text x="256" y="420" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">運勢</text>
 </svg>
-
