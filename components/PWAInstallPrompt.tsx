@@ -604,13 +604,32 @@ export default function PWAInstallPrompt() {
                             <li>「追加」ボタンをタップ</li>
                           </ol>
                         ) : (
-                          <ol className="list-decimal list-inside space-y-1">
-                            <li>アドレスバー右側の <strong>⊕ アイコン</strong> をクリック</li>
-                            <li>または Chrome メニュー（⋮）を開く</li>
-                            <li>
-                              <strong>「愛車運勢診断をインストール」</strong>を選択
-                            </li>
-                          </ol>
+                          <>
+                            <div className="bg-gradient-to-r from-blue-100 to-blue-50 p-3 rounded-lg border-2 border-blue-300 mb-2">
+                              <div className="flex items-center gap-2 mb-2">
+                                <div className="text-2xl">👆</div>
+                                <div className="font-bold text-blue-900">アドレスバーを確認！</div>
+                              </div>
+                              <div className="text-sm text-blue-800">
+                                URLの右側に <span className="inline-flex items-center bg-white px-2 py-1 rounded font-bold">⊕</span> または{" "}
+                                <span className="inline-flex items-center bg-white px-2 py-1 rounded font-bold">🔽</span> アイコンが表示されています
+                              </div>
+                            </div>
+                            <div className="text-xs space-y-1">
+                              <div className="flex items-start gap-2">
+                                <span className="font-bold text-blue-700">1.</span>
+                                <span>アドレスバー右側のアイコンをクリック</span>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <span className="font-bold text-blue-700">2.</span>
+                                <span>「インストール」または「アプリをインストール」を選択</span>
+                              </div>
+                              <div className="flex items-start gap-2">
+                                <span className="font-bold text-blue-700">別の方法:</span>
+                                <span>Chrome メニュー（⋮）→ 「愛車運勢診断をインストール」</span>
+                              </div>
+                            </div>
+                          </>
                         )}
                         <div className="mt-2 text-xs text-blue-600">
                           ※ メニューに表示されない場合は、もう少しサイトを使ってみてください
